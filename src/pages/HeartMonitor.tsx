@@ -1,3 +1,5 @@
+import { Heart, Bell } from "lucide-react";
+
 export default function HeartMonitor() {
   return (
     <div className="min-h-screen bg-[#f3f7fb] flex items-center justify-center p-6">
@@ -6,40 +8,14 @@ export default function HeartMonitor() {
           <div className="bg-blue-600 p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12 21s-6.716-4.35-9.09-6.646C.94 11.968 4.039 6 8.848 6c2.35 0 3.698 1.39 3.152 3.03C11.858 6 13.225 4 15.495 4 20.176 4 23.064 10.11 20.09 14.354 17.468 18.09 12 21 12 21z"
-                    fill="#fff"
-                    opacity="0.95"
-                  />
-                </svg>
+                <Heart size={18} className="text-white" />
               </div>
               <h1 className="text-white font-semibold text-lg">
                 HeartSafe Monitor
               </h1>
             </div>
             <button aria-label="notifications" className="text-white/90">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15 17H9v-6a3 3 0 10-6 0v1l-1 2v1h20v-1l-1-2v-1a3 3 0 10-6 0v6z"
-                  stroke="#fff"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <Bell size={18} className="text-white/90" />
             </button>
           </div>
 

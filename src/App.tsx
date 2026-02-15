@@ -2,8 +2,13 @@ import { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
+import Features from "./pages/Features";
 import HeartMonitor from "./pages/HeartMonitor";
+import TempGuard from "./pages/TempGuard";
+import OxyTrack from "./pages/OxyTrack";
+import DataAnalysis from "./pages/DataAnalysis";
 import Settings from "./pages/Settings";
+import FallGuard from "./pages/FallGuard";
 import InstructionsModal from "./components/InstructionsModal";
 
 function LoginScreen() {
@@ -82,6 +87,11 @@ export default function App() {
       <Route path="/" element={<LoginScreen />} />
       <Route element={<MainLayout />}>
         <Route path="/home" element={<Home />} />
+        <Route path="/features" element={<Features />} />
+        <Route path="/fall" element={<FallGuard />} />
+        <Route path="/temp" element={<TempGuard />} />
+        <Route path="/oxy" element={<OxyTrack />} />
+        <Route path="/analysis" element={<DataAnalysis />} />
         <Route path="/heart" element={<HeartMonitor />} />
         <Route path="/settings" element={<Settings />} />
       </Route>
