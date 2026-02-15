@@ -1,15 +1,10 @@
 import { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
 import MainLayout from "./layouts/MainLayout";
-import Financial from "./pages/Financial";
+import Home from "./pages/Home";
+import HeartMonitor from "./pages/HeartMonitor";
+import Settings from "./pages/Settings";
 import InstructionsModal from "./components/InstructionsModal";
-import InternalManagement from "./pages/InternalManagement";
-import DataDriven from "./pages/DataDriven";
-import UmkmBerkembang from "./pages/UmkmBerkembang";
-import KelolaSampah from "./pages/KelolaSampah";
-import Permodalan from "./pages/Permodalan";
-import Subscription from "./pages/Subscription";
 
 function LoginScreen() {
   const [passwordShown, setPasswordShown] = useState(false);
@@ -18,7 +13,7 @@ function LoginScreen() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    navigate("/dashboard");
+    navigate("/home");
   }
 
   return (
@@ -86,14 +81,9 @@ export default function App() {
     <Routes>
       <Route path="/" element={<LoginScreen />} />
       <Route element={<MainLayout />}>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/financial" element={<Financial />} />
-        <Route path="/internal-management" element={<InternalManagement />} />
-        <Route path="/data-driven" element={<DataDriven />} />
-        <Route path="/umkm-berkembang" element={<UmkmBerkembang />} />
-        <Route path="/kelola-sampah" element={<KelolaSampah />} />
-        <Route path="/permodalan" element={<Permodalan />} />
-        <Route path="/subscription" element={<Subscription />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/heart" element={<HeartMonitor />} />
+        <Route path="/settings" element={<Settings />} />
       </Route>
     </Routes>
   );
