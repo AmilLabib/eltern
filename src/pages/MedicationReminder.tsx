@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Bell, CalendarCheck2, Clock, Pill } from "lucide-react";
+import { Bell, CalendarCheck2, Clock, Pill, Syringe } from "lucide-react";
 
 type Reminder = {
   id: number;
@@ -74,14 +74,19 @@ export default function MedicationReminder() {
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-5 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold text-gray-900">
-            Pengingat Obat
-          </h1>
-          <p className="text-sm text-gray-600">
-            Jadwalkan konsumsi obat sesuai kebutuhan keluarga dan dapatkan
-            notifikasi tepat waktu.
-          </p>
+        <div className="flex items-start gap-3">
+          <div className="p-3 rounded-2xl bg-primary/10 text-primary">
+            <Syringe size={20} />
+          </div>
+          <div>
+            <h1 className="text-2xl font-semibold text-gray-900">
+              Pengingat Obat
+            </h1>
+            <p className="text-sm text-gray-600">
+              Jadwalkan konsumsi obat sesuai kebutuhan keluarga dan dapatkan
+              notifikasi tepat waktu.
+            </p>
+          </div>
         </div>
         <div className="flex items-center gap-2 text-sm text-primary font-semibold">
           <Bell size={18} />
@@ -213,7 +218,7 @@ export default function MedicationReminder() {
               onClick={handleSave}
               className="w-full bg-primary text-white py-3 rounded-xl font-semibold shadow"
             >
-              Simpan Jadwal Dummy
+              Simpan Jadwa
             </button>
 
             {lastSaved && (

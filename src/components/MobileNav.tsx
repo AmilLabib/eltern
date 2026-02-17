@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { Home as HomeIcon, Settings as GearIcon } from "lucide-react";
+import { Home as HomeIcon, ShieldCheck } from "lucide-react";
 
 export default function MobileNav() {
   const navigate = useNavigate();
@@ -45,9 +45,9 @@ export default function MobileNav() {
 
         <div className="flex justify-center">
           <NavItem
-            to="/settings"
-            label="Settings"
-            icon={<GearIcon size={18} />}
+            to="/insurance"
+            label="Asuransi"
+            icon={<ShieldCheck size={18} />}
           />
         </div>
       </div>

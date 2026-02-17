@@ -7,7 +7,7 @@ import HeartMonitor from "./pages/HeartMonitor";
 import TempGuard from "./pages/TempGuard";
 import OxyTrack from "./pages/OxyTrack";
 import DataAnalysis from "./pages/DataAnalysis";
-import Settings from "./pages/Settings";
+import Insurance from "./pages/Insurance";
 import FallGuard from "./pages/FallGuard";
 import MedicationReminder from "./pages/MedicationReminder";
 import InstructionsModal from "./components/InstructionsModal";
@@ -95,7 +95,7 @@ export default function App() {
         <Route path="/analysis" element={<DataAnalysis />} />
         <Route path="/heart" element={<HeartMonitor />} />
         <Route path="/meds" element={<MedicationReminder />} />
-        <Route path="/settings" element={<Settings />} />
+        <Route path="/insurance" element={<Insurance />} />
       </Route>
     </Routes>
   );

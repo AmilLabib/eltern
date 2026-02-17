@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { BarChart3 } from "lucide-react";
 import TrendChart, { type TrendPoint } from "../components/TrendChart";
 
 const mockDatasets = {
@@ -59,25 +60,62 @@ export default function DataAnalysis() {
     [values, dataset],
   );
 
-  const allFeatureStats = useMemo(() => {
-    return (Object.entries(mockDatasets) as [DatasetKey, number[]][]).map(
-      ([key, data]) => {
-        const sum = data.reduce((s, v) => s + v, 0);
-        const avg = sum / data.length;
-        const min = Math.min(...data);
-        const max = Math.max(...data);
-        const latest = data[data.length - 1];
-        return { key, data, avg, min, max, latest };
-      },
-    );
-  }, []);
+  const insight = useMemo(() => {
+    if (dataset === "temp") {
+      return {
+        label: "Demam Terpantau",
+        tone: "bg-amber-50 text-amber-700 border-amber-200",
+        summary:
+          "Suhu rata-rata memanjang di atas 37,5°C. Risiko dehidrasi meningkat jika tidak ada intervensi dalam 6 jam.",
+        actions: [
+          "Catat konsumsi obat penurun panas terakhir",
+          "Pantau ulang suhu setiap 30 menit",
+          "Hubungi dokter jika mencapai ≥ 39°C",
+        ],
+        checklistTitle: "Langkah lanjutan",
+      };
+    }
+    if (dataset === "oxy") {
+      return {
+        label: "Saturasi Stabil",
+        tone: "bg-emerald-50 text-emerald-700 border-emerald-200",
+        summary:
+          "SpO₂ konsisten pada kisaran aman. Tidak ada indikasi hipoksia, lanjutkan aktivitas ringan.",
+        actions: [
+          "Jadwalkan latihan pernapasan 5 menit",
+          "Pastikan humidifier menyala untuk kenyamanan",
+          "Siapkan oksimeter cadangan untuk verifikasi",
+        ],
+        checklistTitle: "Rekomendasi",
+      };
+    }
+    return {
+      label: "Waspada Takikardia",
+      tone: "bg-rose-50 text-rose-700 border-rose-200",
+      summary:
+        "Detak beberapa kali menembus 100 bpm. Hindari kafein dan pastikan pasien beristirahat.",
+      actions: [
+        "Aktifkan mode monitoring intensif 1 jam",
+        "Lakukan teknik pernapasan 4-7-8",
+        "Laporkan pada caregiver jika berulang >3 kali",
+      ],
+      checklistTitle: "Prioritas",
+    };
+  }, [dataset]);
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-3 bg-primary text-white px-4 py-4 rounded-2xl shadow-md md:flex-row md:items-center md:justify-between">
-        <div className="font-semibold text-lg">Data Analysis</div>
-        <div className="text-sm text-white/80">
-          Monitor suhu, oksigen, dan detak dalam satu layar besar
+        <div className="flex items-start gap-3">
+          <div className="p-3 rounded-2xl bg-white/10 text-white">
+            <BarChart3 size={20} />
+          </div>
+          <div>
+            <div className="font-semibold text-lg">Data Analysis</div>
+            <div className="text-sm text-white/80">
+              Monitor suhu, oksigen, dan detak dalam satu layar besar
+            </div>
+          </div>
         </div>
       </div>
 
@@ -147,80 +185,34 @@ export default function DataAnalysis() {
           </div>
         </div>
 
-        <div className="rounded-2xl bg-white p-5 shadow-md border border-gray-100">
-          <div className="text-sm font-medium">Analisis Otomatis</div>
-          <div className="mt-2 text-sm text-gray-700">
-            {dataset === "temp" && (
-              <div>
-                Rekomendasi: Suhu rata-rata di atas 37,5°C perlu dipantau.
-                Segera hubungi tenaga medis jika demam tidak kunjung turun.
-              </div>
-            )}
-            {dataset === "oxy" && (
-              <div>
-                Rekomendasi: SpO2 ≥ 95% masih normal. Jika turun di bawah 92%
-                segera periksa dan siapkan bantuan oksigen bila perlu.
-              </div>
-            )}
-            {dataset === "heart" && (
-              <div>
-                Rekomendasi: Pantau tanda takikardia jika rata-rata &gt; 100
-                bpm. Jika detak &lt; 50 bpm, detak jantung Anda terlalu
-                lemah—cepat istirahat dan konsultasikan dengan dokter bila
-                keluhan berlanjut.
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div className="rounded-2xl bg-white p-5 shadow-md border border-gray-100">
-        <div className="text-sm font-medium mb-4">
-          Semua Pengukuran Fitur Medis
-        </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          {allFeatureStats.map(({ key, data, avg, min, max, latest }) => (
-            <div
-              key={key}
-              className="p-4 border border-gray-100 rounded-xl bg-gray-50"
+        <div className="rounded-2xl bg-white p-5 shadow-md border border-gray-100 space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="text-sm font-medium">Analisis Otomatis</div>
+            <span
+              className={`text-xs font-semibold px-3 py-1 rounded-full border ${insight.tone}`}
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-sm font-semibold">
-                    {featureLabels[key]}
-                  </div>
-                  <div className="text-xs text-gray-500">
-                    Total {data.length} data terbaru
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-base font-bold">
-                    {formatValue(key, latest)}
-                  </div>
-                  <div className="text-xs text-gray-500">Terbaru</div>
-                </div>
-              </div>
-
-              <div className="mt-3 grid grid-cols-3 gap-2 text-xs text-gray-600">
-                <div>
-                  <div className="font-medium text-gray-900">Min</div>
-                  <div>{formatValue(key, min)}</div>
-                </div>
-                <div>
-                  <div className="font-medium text-gray-900">Max</div>
-                  <div>{formatValue(key, max)}</div>
-                </div>
-                <div>
-                  <div className="font-medium text-gray-900">Avg</div>
-                  <div>{formatValue(key, avg)}</div>
-                </div>
-              </div>
-
-              <div className="mt-3 text-xs text-gray-500 leading-relaxed">
-                Riwayat: {data.map((v) => formatValue(key, v)).join(" · ")}
-              </div>
-            </div>
-          ))}
+              {insight.label}
+            </span>
+          </div>
+          <p className="text-sm text-gray-700 leading-relaxed">
+            {insight.summary}
+          </p>
+          <div>
+            <p className="text-xs uppercase tracking-wide text-gray-400 mb-2">
+              {insight.checklistTitle}
+            </p>
+            <ul className="space-y-2 text-sm text-gray-700">
+              {insight.actions.map((action) => (
+                <li
+                  key={action}
+                  className="flex items-start gap-2 rounded-xl border border-gray-100 bg-gray-50 px-3 py-2"
+                >
+                  <span className="mt-1 h-2 w-2 rounded-full bg-primary" />
+                  <span>{action}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

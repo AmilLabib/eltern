@@ -27,22 +27,14 @@ export default function TempGuard() {
           </div>
           <div className="font-semibold text-lg">TempGuard</div>
         </div>
-        <button aria-label="Notifications" className="p-2">
+        <button aria-label="Notifications">
           <svg
             width="20"
-            height="20"
-            viewBox="0 0 24 24"
+            height="0"
+            viewBox="0 0 24 0"
             fill="none"
             className="text-white"
-          >
-            <path
-              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5"
-              stroke="currentColor"
-              strokeWidth="1.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          ></svg>
         </button>
       </div>
 

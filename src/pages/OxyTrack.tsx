@@ -20,15 +20,17 @@ export default function OxyTrack() {
     <div className="space-y-6">
       {/* header */}
       <div className="flex flex-col gap-3 bg-green-600 text-white px-4 py-4 rounded-2xl shadow-md md:flex-row md:items-center md:justify-between">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-white/10 rounded-md">
-            <Activity size={18} className="text-white" />
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-white/10 rounded-md">
+              <Activity size={18} className="text-white" />
+            </div>
+            <div className="font-semibold text-lg">OxyTrack</div>
           </div>
-          <div className="font-semibold text-lg">OxyTrack</div>
+          <button aria-label="Notifications" className="p-2">
+            <Bell size={18} className="text-white" />
+          </button>
         </div>
-        <button aria-label="Notifications" className="p-2">
-          <Bell size={18} className="text-white" />
-        </button>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">

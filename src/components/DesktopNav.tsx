@@ -7,7 +7,7 @@ import {
   Heart,
   BarChart2,
   Pill,
-  Settings,
+  ShieldCheck,
 } from "lucide-react";
 
 const navItems = [
@@ -17,8 +17,8 @@ const navItems = [
   { to: "/fall", label: "FallGuard", icon: <AlertTriangle size={16} /> },
   { to: "/heart", label: "HeartSafe", icon: <Heart size={16} /> },
   { to: "/analysis", label: "Data", icon: <BarChart2 size={16} /> },
-  { to: "/meds", label: "Pengingat Obat", icon: <Pill size={16} /> },
-  { to: "/settings", label: "Pengaturan", icon: <Settings size={16} /> },
+  { to: "/meds", label: "Obat", icon: <Pill size={16} /> },
+  { to: "/insurance", label: "Asuransi", icon: <ShieldCheck size={16} /> },
 ];
 
 export default function DesktopNav() {

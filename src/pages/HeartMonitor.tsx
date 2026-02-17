@@ -18,17 +18,19 @@ export default function HeartMonitor() {
     <div className="space-y-6">
       <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
         <div className="bg-blue-600 p-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-              <Heart size={20} className="text-white" />
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <Heart size={20} className="text-white" />
+              </div>
+              <h1 className="text-white font-semibold text-xl">
+                HeartSafe Monitor
+              </h1>
             </div>
-            <h1 className="text-white font-semibold text-xl">
-              HeartSafe Monitor
-            </h1>
+            <button aria-label="notifications" className="text-white/90">
+              <Bell size={20} className="text-white/90" />
+            </button>
           </div>
-          <button aria-label="notifications" className="text-white/90">
-            <Bell size={20} className="text-white/90" />
-          </button>
         </div>
 
         <div className="p-6 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
@@ -105,16 +107,49 @@ export default function HeartMonitor() {
             </div>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-            <div className="bg-white rounded-lg p-4 text-center border border-gray-100">
-              <div className="text-xs text-gray-500">Suhu Tubuh</div>
-              <div className="text-2xl font-semibold text-gray-900">
-                38.9 °C
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+            <div className="bg-white rounded-2xl p-4 border border-red-100 shadow-sm">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-red-500">
+                    Suhu Tubuh
+                  </p>
+                  <div className="text-3xl font-bold text-gray-900">
+                    38.9 °C
+                  </div>
+                </div>
+                <span className="px-2.5 py-1 rounded-full bg-red-50 text-[11px] font-semibold text-red-600">
+                  Demam Tinggi
+                </span>
+              </div>
+              <div className="mt-3 text-sm text-gray-600">
+                Naik 0.3°C dalam 2 jam terakhir. Sarankan kompres hangat dan
+                hidrasi.
+              </div>
+              <div className="mt-3 h-2 rounded-full bg-red-50">
+                <div className="h-full rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 w-[82%]" />
               </div>
             </div>
-            <div className="bg-white rounded-lg p-4 text-center border border-gray-100">
-              <div className="text-xs text-gray-500">Kadar Oksigen</div>
-              <div className="text-2xl font-semibold text-gray-900">98%</div>
+
+            <div className="bg-white rounded-2xl p-4 border border-emerald-100 shadow-sm">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-emerald-500">
+                    Kadar Oksigen
+                  </p>
+                  <div className="text-3xl font-bold text-gray-900">98%</div>
+                </div>
+                <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-[11px] font-semibold text-emerald-600">
+                  Stabil
+                </span>
+              </div>
+              <div className="mt-3 text-sm text-gray-600">
+                Dalam rentang aman untuk aktivitas ringan. Continue monitoring
+                setiap 30 menit.
+              </div>
+              <div className="mt-3 h-2 rounded-full bg-emerald-50">
+                <div className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-emerald-600 w-[95%]" />
+              </div>
             </div>
           </div>
         </div>
