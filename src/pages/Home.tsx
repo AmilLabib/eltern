@@ -1,88 +1,159 @@
+import {
+  Activity,
+  Thermometer,
+  Droplets,
+  ShieldAlert,
+  HeartPulse,
+  Pill,
+  ShieldCheck,
+  TrendingUp,
+} from "lucide-react";
 import { Link } from "react-router-dom";
+
+const quickStats = [
+  {
+    label: "Kalori",
+    value: "79",
+    target: "/500 kcal",
+    icon: <Activity className="text-orange-500" size={16} />,
+  },
+  {
+    label: "Langkah",
+    value: "1.183",
+    target: "/6.000 langkah",
+    icon: <TrendingUp className="text-yellow-500" size={16} />,
+  },
+  {
+    label: "Aktif",
+    value: "8",
+    target: "/30 menit",
+    icon: <Activity className="text-blue-500" size={16} />,
+  },
+];
+
+const features = [
+  {
+    title: "TempGuard",
+    description: "Pantau demam dan lonjakan suhu",
+    status: "38.9 °C",
+    route: "/temp",
+    icon: <Thermometer size={18} className="text-red-500" />,
+  },
+  {
+    title: "OxyTrack",
+    description: "Saturasi oksigen harian",
+    status: "98% stabil",
+    route: "/oxy",
+    icon: <Droplets size={18} className="text-emerald-500" />,
+  },
+  {
+    title: "FallGuard",
+    description: "Pelacakan jatuh & lokasi",
+    status: "Mode darurat aktif",
+    route: "/fall",
+    icon: <ShieldAlert size={18} className="text-amber-500" />,
+  },
+  {
+    title: "HeartSafe",
+    description: "Detak real-time & riwayat",
+    status: "95 BPM",
+    route: "/heart",
+    icon: <HeartPulse size={18} className="text-rose-500" />,
+  },
+  {
+    title: "Pengingat Obat",
+    description: "Jadwal dan stok obat",
+    status: "Alarm 09:00",
+    route: "/meds",
+    icon: <Pill size={18} className="text-purple-500" />,
+  },
+  {
+    title: "Asuransi",
+    description: "Bandingkan proteksi",
+    status: "3 paket aktif",
+    route: "/insurance",
+    icon: <ShieldCheck size={18} className="text-primary" />,
+  },
+];
 
 export default function Home() {
   return (
-    <div className="min-h-[60vh] flex items-center">
-      <div className="w-full bg-white rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="grid gap-8 md:grid-cols-2 md:items-center">
-          <div className="text-center md:text-left space-y-4">
-            <div>
-              <img
-                src="/logo.png"
-                alt="eltern"
-                className="mx-auto md:mx-0 w-28 sm:w-32"
-              />
-              <h1 className="mt-4 text-3xl sm:text-4xl font-bold text-gray-900">
-                Platform Pemantauan Kesehatan Keluarga
-              </h1>
-              <p className="mt-2 text-text text-base">
-                TempGuard, OxyTrack, FallGuard, dan HeartSafe kini tampil
-                adaptif di layar besar. Pantau seluruh metrik penting dalam satu
-                dasbor responsif.
-              </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-              <Link
-                to="/features"
-                className="inline-flex items-center justify-center bg-primary text-white px-5 py-3 rounded-lg font-semibold shadow"
-              >
-                Lihat Fitur
-              </Link>
-              <Link
-                to="/analysis"
-                className="inline-flex items-center justify-center bg-primary/10 text-primary px-5 py-3 rounded-lg font-semibold"
-              >
-                Ringkasan Data
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 text-left">
-              <div className="p-3 rounded-xl bg-gray-50">
-                <div className="text-xs text-gray-500">Pengguna Aktif</div>
-                <div className="text-2xl font-bold text-gray-900">240+</div>
-                <p className="text-xs text-gray-500">Keluarga terhubung</p>
-              </div>
-              <div className="p-3 rounded-xl bg-gray-50">
-                <div className="text-xs text-gray-500">Alert Mingguan</div>
-                <div className="text-2xl font-bold text-gray-900">58</div>
-                <p className="text-xs text-gray-500">Ditangani tepat waktu</p>
-              </div>
-            </div>
+    <div className="space-y-6">
+      <header className="bg-white rounded-3xl shadow-sm border border-gray-100 p-5 flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs uppercase text-gray-400">Selasa, 17 Feb</p>
+            <h1 className="text-3xl font-semibold text-gray-900">Health</h1>
           </div>
-
-          <div className="relative">
-            <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-primary/20 via-primary/5 to-white p-6 border border-primary/10 shadow-inner">
-              <div className="flex flex-col gap-3 text-sm">
-                <div className="bg-white/70 backdrop-blur rounded-xl p-4 shadow">
-                  <div className="text-xs text-gray-500">TempGuard</div>
-                  <div className="text-2xl font-bold">38.9 °C</div>
-                  <p className="text-xs text-red-500 font-semibold">
-                    Peringatan demam tinggi
-                  </p>
-                </div>
-                <div className="bg-white/70 backdrop-blur rounded-xl p-4 shadow">
-                  <div className="text-xs text-gray-500">OxyTrack</div>
-                  <div className="text-2xl font-bold">98%</div>
-                  <p className="text-xs text-emerald-600 font-semibold">
-                    Pernapasan stabil
-                  </p>
-                </div>
-                <div className="bg-white/70 backdrop-blur rounded-xl p-4 shadow">
-                  <div className="text-xs text-gray-500">FallGuard</div>
-                  <p className="text-sm font-semibold text-gray-800">
-                    Lokasi darurat siap dalam peta interaktif
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="absolute -bottom-6 -right-4 w-32 h-32 bg-primary text-white rounded-full flex flex-col items-center justify-center shadow-xl">
-              <span className="text-xs uppercase tracking-wide">Status</span>
-              <span className="text-2xl font-bold">Aktif</span>
-            </div>
+          <button className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-500">
+            +
+          </button>
+        </div>
+        <div className="rounded-2xl bg-gradient-to-r from-primary/10 via-white to-white border border-primary/10 p-4 flex items-center justify-between">
+          <div>
+            <p className="text-xs uppercase text-primary font-semibold">
+              Vitality score
+            </p>
+            <div className="text-3xl font-bold text-gray-900">74</div>
+            <p className="text-xs text-gray-500">Naik 6 poin minggu ini</p>
+          </div>
+          <div className="w-32 h-32 rounded-[24px] bg-white/70 border border-white flex items-center justify-center relative">
+            <div className="w-24 h-24 rounded-full bg-primary/20" />
+            <Activity className="absolute text-primary" size={24} />
           </div>
         </div>
-      </div>
+      </header>
+
+      <section className="bg-white rounded-3xl shadow-sm border border-gray-100 p-5">
+        <div className="grid gap-4 sm:grid-cols-3">
+          {quickStats.map((stat) => (
+            <div
+              key={stat.label}
+              className="rounded-2xl border border-gray-100 p-4 flex items-center gap-3"
+            >
+              <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center">
+                {stat.icon}
+              </div>
+              <div>
+                <p className="text-xs uppercase text-gray-400">{stat.label}</p>
+                <div className="text-xl font-bold text-gray-900">
+                  {stat.value}
+                </div>
+                <p className="text-xs text-gray-500">{stat.target}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {features.map((feature) => (
+          <Link
+            to={feature.route}
+            key={feature.title}
+            className="rounded-3xl border border-gray-100 bg-white p-5 shadow-sm transition hover:border-primary/60 hover:-translate-y-0.5"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-gray-50 flex items-center justify-center">
+                {feature.icon}
+              </div>
+              <div>
+                <p className="font-semibold text-gray-900">{feature.title}</p>
+                <p className="text-xs text-gray-500">{feature.description}</p>
+              </div>
+            </div>
+            <div className="mt-4 text-sm text-gray-600">{feature.status}</div>
+          </Link>
+        ))}
+      </section>
+
+      <Link
+        to="/features"
+        className="flex items-center justify-between rounded-2xl border border-gray-100 bg-white px-4 py-3 text-sm font-semibold text-primary"
+      >
+        Manage health features
+        <span aria-hidden>→</span>
+      </Link>
     </div>
   );
 }
