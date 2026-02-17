@@ -7,6 +7,14 @@ const mockDatasets = {
   heart: [72, 75, 78, 80, 76, 74, 73, 77, 79, 76],
 };
 
+type DatasetKey = keyof typeof mockDatasets;
+
+const featureLabels: Record<DatasetKey, string> = {
+  temp: "Suhu Tubuh",
+  oxy: "Saturasi Oksigen",
+  heart: "Detak Jantung",
+};
+
 const formatValue = (key: string, v: number) => {
   if (key === "temp") return `${v.toFixed(1)} °C`;
   if (key === "oxy") return `${v}%`;
@@ -45,7 +53,7 @@ const Sparkline: FC<{ values: number[]; color?: string }> = ({
 };
 
 export default function DataAnalysis() {
-  const [dataset, setDataset] = useState<"temp" | "oxy" | "heart">("temp");
+  const [dataset, setDataset] = useState<DatasetKey>("temp");
   const values = mockDatasets[dataset];
 
   const stats = useMemo(() => {
@@ -55,6 +63,19 @@ export default function DataAnalysis() {
     const max = Math.max(...values);
     return { avg, min, max };
   }, [values]);
+
+  const allFeatureStats = useMemo(() => {
+    return (Object.entries(mockDatasets) as [DatasetKey, number[]][]).map(
+      ([key, data]) => {
+        const sum = data.reduce((s, v) => s + v, 0);
+        const avg = sum / data.length;
+        const min = Math.min(...data);
+        const max = Math.max(...data);
+        const latest = data[data.length - 1];
+        return { key, data, avg, min, max, latest };
+      },
+    );
+  }, []);
 
   return (
     <div className="min-h-screen p-4 bg-bg">
@@ -137,26 +158,78 @@ export default function DataAnalysis() {
         </div>
 
         <div className="rounded-xl bg-white p-4 shadow-md">
-          <div className="text-sm font-medium">Automated Analysis</div>
+          <div className="text-sm font-medium">Analisis Otomatis</div>
           <div className="mt-2 text-sm text-gray-700">
             {dataset === "temp" && (
               <div>
-                Recommendation: Monitor fever if average &gt; 37.5°C. Contact
-                healthcare if sustained high readings.
+                Rekomendasi: Suhu rata-rata di atas 37,5°C perlu dipantau.
+                Segera hubungi tenaga medis jika demam tidak kunjung turun.
               </div>
             )}
             {dataset === "oxy" && (
               <div>
-                Recommendation: SpO2 &gt;= 95% is normal. If values fall below
-                92% consider medical attention.
+                Rekomendasi: SpO2 ≥ 95% masih normal. Jika turun di bawah 92%
+                segera periksa dan siapkan bantuan oksigen bila perlu.
               </div>
             )}
             {dataset === "heart" && (
               <div>
-                Recommendation: Track for tachycardia if average &gt; 100 bpm or
-                bradycardia if &lt; 50 bpm.
+                Rekomendasi: Pantau tanda takikardia jika rata-rata &gt; 100
+                bpm. Jika detak &lt; 50 bpm, detak jantung Anda terlalu
+                lemah—cepat istirahat dan konsultasikan dengan dokter bila
+                keluhan berlanjut.
               </div>
             )}
+          </div>
+        </div>
+
+        <div className="rounded-xl bg-white p-4 shadow-md">
+          <div className="text-sm font-medium mb-3">
+            Semua Pengukuran Fitur Medis
+          </div>
+          <div className="space-y-3">
+            {allFeatureStats.map(({ key, data, avg, min, max, latest }) => (
+              <div
+                key={key}
+                className="p-3 border border-gray-100 rounded-xl bg-gray-50"
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-sm font-semibold">
+                      {featureLabels[key]}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      Total {data.length} data terbaru
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-base font-bold">
+                      {formatValue(key, latest)}
+                    </div>
+                    <div className="text-xs text-gray-500">Terbaru</div>
+                  </div>
+                </div>
+
+                <div className="mt-3 grid grid-cols-3 gap-2 text-xs text-gray-600">
+                  <div>
+                    <div className="font-medium text-gray-900">Min</div>
+                    <div>{formatValue(key, min)}</div>
+                  </div>
+                  <div>
+                    <div className="font-medium text-gray-900">Max</div>
+                    <div>{formatValue(key, max)}</div>
+                  </div>
+                  <div>
+                    <div className="font-medium text-gray-900">Avg</div>
+                    <div>{formatValue(key, avg)}</div>
+                  </div>
+                </div>
+
+                <div className="mt-3 text-xs text-gray-500 leading-relaxed">
+                  Riwayat: {data.map((v) => formatValue(key, v)).join(" · ")}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

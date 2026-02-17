@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Home() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-bg p-6">
@@ -9,12 +11,12 @@ export default function Home() {
           oksigen, detak jantung, dan deteksi jatuh dengan cepat.
         </p>
         <div className="mt-4">
-          <a
-            href="/features"
+          <Link
+            to="/features"
             className="inline-block bg-primary text-white px-4 py-2 rounded-lg"
           >
             Lihat Fitur
-          </a>
+          </Link>
         </div>
       </div>
     </div>
