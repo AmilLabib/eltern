@@ -9,6 +9,7 @@ import OxyTrack from "./pages/OxyTrack";
 import DataAnalysis from "./pages/DataAnalysis";
 import Settings from "./pages/Settings";
 import FallGuard from "./pages/FallGuard";
+import MedicationReminder from "./pages/MedicationReminder";
 import InstructionsModal from "./components/InstructionsModal";
 
 function LoginScreen() {
@@ -93,6 +94,7 @@ export default function App() {
         <Route path="/oxy" element={<OxyTrack />} />
         <Route path="/analysis" element={<DataAnalysis />} />
         <Route path="/heart" element={<HeartMonitor />} />
+        <Route path="/meds" element={<MedicationReminder />} />
         <Route path="/settings" element={<Settings />} />
       </Route>
     </Routes>

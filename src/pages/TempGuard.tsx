@@ -1,12 +1,26 @@
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Thermometer, Phone, AlertTriangle } from "lucide-react";
+import TrendChart, { type TrendPoint } from "../components/TrendChart";
 
 export default function TempGuard() {
   const navigate = useNavigate();
+  const temperatureSeries: TrendPoint[] = useMemo(
+    () => [
+      { label: "02:00", value: 37.2, note: "Normal" },
+      { label: "06:00", value: 37.8, note: "Ringan" },
+      { label: "10:00", value: 38.3, note: "Waspada" },
+      { label: "14:00", value: 38.9, note: "Demam" },
+      { label: "18:00", value: 38.6, note: "Menurun" },
+      { label: "22:00", value: 38.1, note: "Stabil" },
+    ],
+    [],
+  );
+  const latestTemp = temperatureSeries[temperatureSeries.length - 1];
   return (
-    <div className="min-h-screen p-4 bg-bg">
+    <div className="space-y-6">
       {/* header */}
-      <div className="flex items-center justify-between bg-primary text-white px-4 py-3 rounded-md shadow-md">
+      <div className="flex flex-col gap-3 rounded-2xl bg-primary text-white px-4 py-4 shadow-md md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-primary/20 rounded-md">
             <Thermometer size={18} className="text-white" />
@@ -32,21 +46,42 @@ export default function TempGuard() {
         </button>
       </div>
 
-      <div className="mt-4 space-y-4">
-        <div className="rounded-xl bg-red-600/95 text-white px-4 py-3 shadow-md">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-white/20 rounded-full">
-              <AlertTriangle size={16} className="text-white" />
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,360px)_1fr]">
+        <div className="space-y-4">
+          <div className="rounded-2xl bg-red-600/95 text-white px-4 py-4 shadow-md">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-white/20 rounded-full">
+                <AlertTriangle size={16} className="text-white" />
+              </div>
+              <div className="font-semibold text-base">
+                PERINGATAN: Suhu Tubuh Tinggi Terdeteksi!
+              </div>
             </div>
-            <div className="font-semibold">
-              PERINGATAN: Suhu Tubuh Tinggi Terdeteksi!
-            </div>
+            <p className="mt-3 text-sm text-white/90">
+              Sistem akan terus memantau hingga suhu turun di bawah 37,5 °C.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            <button className="w-full bg-red-600 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 shadow">
+              <Phone size={16} />
+              Hubungi Bantuan Medis
+            </button>
+
+            <button
+              onClick={() => navigate("/analysis")}
+              className="w-full bg-primary text-white py-3 rounded-xl font-semibold"
+            >
+              Lihat Riwayat Suhu
+            </button>
           </div>
         </div>
 
-        <div className="rounded-xl bg-white p-4 shadow-md">
+        <div className="rounded-2xl bg-white p-4 shadow-md border border-gray-100">
           <div className="text-center">
-            <div className="text-4xl font-bold">38.9 °C</div>
+            <div className="text-4xl font-bold">
+              {latestTemp.value.toFixed(1)} °C
+            </div>
             <div className="text-sm text-gray-600">
               Suhu Tubuh Tinggi (Demam)
             </div>
@@ -56,45 +91,13 @@ export default function TempGuard() {
             <div className="text-sm font-medium mb-2">
               Grafik Suhu Tubuh (24 Jam)
             </div>
-            <div className="w-full h-36 bg-gray-50 rounded-md flex items-center justify-center">
-              {/* Placeholder sparkline/chart */}
-              <svg width="220" height="90" viewBox="0 0 220 90" fill="none">
-                <rect width="220" height="90" rx="8" fill="#fff" />
-                <path
-                  d="M10 60 C40 40, 70 50, 100 35 C130 20, 160 40, 190 30"
-                  stroke="#3B82F6"
-                  strokeWidth="2"
-                  fill="none"
-                />
-                <path
-                  d="M10 70 C40 60, 70 65, 100 55 C130 45, 160 60, 190 50"
-                  stroke="#ef4444"
-                  strokeWidth="2"
-                  fill="none"
-                  opacity="0.9"
-                />
-              </svg>
-            </div>
+            <TrendChart data={temperatureSeries} color="#ef4444" unit="°C" />
 
             <div className="mt-3 text-sm text-gray-700">
               Status: Demam tinggi. Pantau ketat dan hubungi medis jika
-              berlanjut.
+              berlanjut. Titik data dapat diketuk untuk melihat nilai detil.
             </div>
           </div>
-        </div>
-
-        <div className="space-y-3">
-          <button className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2">
-            <Phone size={16} />
-            Hubungi Bantuan Medis
-          </button>
-
-          <button
-            onClick={() => navigate("/analysis")}
-            className="w-full bg-primary text-white py-3 rounded-lg font-semibold"
-          >
-            Lihat Riwayat Suhu
-          </button>
         </div>
       </div>
     </div>

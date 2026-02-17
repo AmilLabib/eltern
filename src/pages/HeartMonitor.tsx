@@ -1,26 +1,39 @@
+import { useMemo } from "react";
 import { Heart, Bell } from "lucide-react";
+import TrendChart, { type TrendPoint } from "../components/TrendChart";
 
 export default function HeartMonitor() {
+  const heartSeries: TrendPoint[] = useMemo(
+    () => [
+      { label: "00:00", value: 88, note: "Normal" },
+      { label: "04:00", value: 90, note: "Normal" },
+      { label: "08:00", value: 95, note: "Aktif" },
+      { label: "12:00", value: 102, note: "Tinggi" },
+      { label: "16:00", value: 98, note: "Stabil" },
+      { label: "20:00", value: 93, note: "Turun" },
+    ],
+    [],
+  );
   return (
-    <div className="min-h-screen bg-[#f3f7fb] flex items-center justify-center p-6">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          <div className="bg-blue-600 p-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center">
-                <Heart size={18} className="text-white" />
-              </div>
-              <h1 className="text-white font-semibold text-lg">
-                HeartSafe Monitor
-              </h1>
+    <div className="space-y-6">
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+        <div className="bg-blue-600 p-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+              <Heart size={20} className="text-white" />
             </div>
-            <button aria-label="notifications" className="text-white/90">
-              <Bell size={18} className="text-white/90" />
-            </button>
+            <h1 className="text-white font-semibold text-xl">
+              HeartSafe Monitor
+            </h1>
           </div>
+          <button aria-label="notifications" className="text-white/90">
+            <Bell size={20} className="text-white/90" />
+          </button>
+        </div>
 
-          <div className="p-5 space-y-4">
-            <div className="rounded-lg bg-red-100 border border-red-300 p-3 flex gap-3 items-start">
+        <div className="p-6 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="space-y-4">
+            <div className="rounded-lg bg-red-100 border border-red-300 p-4 flex gap-3 items-start">
               <div className="text-red-700 mt-1">
                 <svg
                   width="20"
@@ -45,7 +58,7 @@ export default function HeartMonitor() {
               </div>
             </div>
 
-            <div className="bg-white rounded-xl p-4 shadow-sm">
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-sm text-gray-600">Detak Jantung</div>
@@ -56,42 +69,17 @@ export default function HeartMonitor() {
                     </span>
                   </div>
                 </div>
-                <div className="text-sm text-gray-400">&nbsp;</div>
-              </div>
-
-              <div className="mt-4">
-                {/* simple ECG-like SVG */}
-                <div className="w-full h-28 bg-gradient-to-b from-white to-red-50 rounded-lg p-2">
-                  <svg viewBox="0 0 200 60" className="w-full h-full">
-                    <defs>
-                      <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
-                        <stop offset="0%" stopColor="#fef2f2" />
-                        <stop offset="100%" stopColor="#fff" />
-                      </linearGradient>
-                    </defs>
-                    <rect
-                      x="0"
-                      y="0"
-                      width="200"
-                      height="60"
-                      fill="url(#g)"
-                      rx="6"
-                    />
-                    <path
-                      d="M0 40 L30 40 L38 24 L46 40 L56 10 L64 40 L90 40 L98 26 L106 40 L140 40 L148 32 L156 40 L200 40"
-                      stroke="#ef4444"
-                      strokeWidth="2.5"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <circle cx="176" cy="38" r="2.5" fill="#ef4444" />
-                  </svg>
+                <div className="hidden text-sm text-gray-400 md:block">
+                  Mode darurat
                 </div>
               </div>
 
-              <div className="mt-4 flex flex-col gap-3">
-                <button className="w-full h-12 bg-red-500 text-white rounded-lg flex items-center justify-center gap-2 font-semibold">
+              <div className="mt-4">
+                <TrendChart data={heartSeries} color="#ef4444" unit=" bpm" />
+              </div>
+
+              <div className="mt-4 flex flex-col gap-3 md:flex-row">
+                <button className="flex-1 h-12 bg-red-500 text-white rounded-lg flex items-center justify-center gap-2 font-semibold">
                   <svg
                     width="16"
                     height="16"
@@ -110,23 +98,25 @@ export default function HeartMonitor() {
                   Hubungi Bantuan
                 </button>
 
-                <button className="w-full h-12 border border-blue-200 text-blue-600 rounded-lg bg-white font-medium">
+                <button className="flex-1 h-12 border border-blue-200 text-blue-600 rounded-lg bg-white font-medium">
                   Lihat Riwayat
                 </button>
               </div>
             </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-white rounded-lg p-3 text-center">
-                Suhu Tubuh
-              </div>
-              <div className="bg-white rounded-lg p-3 text-center">
-                Kadar Oksigen
-              </div>
-            </div>
           </div>
 
-          {/* Mobile nav is provided globally by MainLayout -> MobileNav */}
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+            <div className="bg-white rounded-lg p-4 text-center border border-gray-100">
+              <div className="text-xs text-gray-500">Suhu Tubuh</div>
+              <div className="text-2xl font-semibold text-gray-900">
+                38.9 °C
+              </div>
+            </div>
+            <div className="bg-white rounded-lg p-4 text-center border border-gray-100">
+              <div className="text-xs text-gray-500">Kadar Oksigen</div>
+              <div className="text-2xl font-semibold text-gray-900">98%</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
