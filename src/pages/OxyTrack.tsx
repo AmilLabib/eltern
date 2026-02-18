@@ -37,7 +37,7 @@ export default function OxyTrack() {
         <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100 flex flex-col items-center justify-center">
           <div className="rounded-full w-56 h-56 max-w-full bg-primary/90 flex flex-col items-center justify-center text-white shadow-lg">
             <div className="text-sm uppercase tracking-wide text-white/70">
-              SpO2
+              ECG
             </div>
             <div className="text-5xl font-bold">98%</div>
             <div className="text-xs text-white/70 mt-1">Stabil</div>
