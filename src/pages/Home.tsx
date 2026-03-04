@@ -79,6 +79,51 @@ const features = [
 export default function Home() {
   return (
     <div className="space-y-6">
+      <section className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-3 max-w-xl">
+            <p className="text-xs uppercase tracking-wide text-gray-400">
+              Perangkat rekomendasi
+            </p>
+            <h2 className="text-2xl font-semibold text-gray-900">
+              Eltern Care Band
+            </h2>
+            <p className="text-sm text-gray-600">
+              Band pintar yang terhubung langsung dengan semua fitur Eltern.
+              Pantau suhu, oksigen, dan detak dari satu perangkat yang nyaman
+              dipakai sepanjang hari.
+            </p>
+            <div className="space-y-1">
+              <p className="text-xs uppercase text-gray-400">Harga</p>
+              <div className="flex items-baseline gap-3">
+                <span className="text-base text-gray-400 line-through">
+                  IDR 2.400k
+                </span>
+                <span className="text-3xl font-bold text-gray-900">
+                  IDR 1.200k
+                </span>
+              </div>
+              <span className="inline-flex text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+                Diskon 50%
+              </span>
+            </div>
+            <button
+              type="button"
+              className="inline-flex items-center justify-center rounded-2xl bg-primary px-6 py-3 text-white font-semibold shadow"
+            >
+              Beli Sekarang
+            </button>
+          </div>
+          <div className="bg-gray-50 rounded-2xl border border-dashed border-gray-200 p-4 w-full md:w-64 lg:w-72 flex items-center justify-center">
+            <img
+              src="/product.png"
+              alt="Eltern product"
+              className="max-h-48 object-contain"
+            />
+          </div>
+        </div>
+      </section>
+
       <header className="bg-white rounded-3xl shadow-sm border border-gray-100 p-5 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div>
